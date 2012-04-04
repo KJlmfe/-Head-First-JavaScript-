@@ -1,0 +1,118 @@
+<html>
+	<head>
+		<title>Mandango - The Macho Movie Ticket Finder</title>
+		<script type="text/javascript">
+			var seats = [[false,true,false,true,true,true,false,true,false],
+						[false,true,false,false,true,false,true,true,true],
+						[true,true,true,true,true,true,false,true,false],
+						[true,true,true,false,true,false,false,true,false]];
+			var selSeat = -1;
+		
+			function initSeats()
+			{
+				for(var i=0;i<seats.length;i++)
+					for(var j=0;j<seats[i].length;j++)
+					{
+						if(seats[i][j])
+						{
+							document.getElementById("seat"+(i*seats[i].length+j)).src = "seat_avail.png";
+							document.getElementById("seat"+(i*seats[i].length+j)).alt = "Available seat";
+						}
+						else
+						{
+							document.getElementById("seat"+(i*seats[i].length+j)).src = "seat_unavail.png";
+							document.getElementById("seat"+(i*seats[i].length+j)).alt = "Unavailable seat";
+						}
+					}	
+			}
+
+			function findSeats()
+			{
+				if(selSeat > 0)
+				{
+					selSeat = -1;
+					initSeats();
+				}
+
+				var i=0,finished=false;
+	
+				while(i<seats.length && !finished)
+				{
+					for(var j=0;j<seats[i].length;j++)
+					{
+						if(seats[i][j] && seats[i][j+1] && seats[i][j+2])
+						{
+							selSeat = 1;
+							document.getElementById("seat"+(i*seats[i].length+j)).src = "seat_select.png";
+							document.getElementById("seat"+(i*seats[i].length+j)).alt = "Your seat";
+							document.getElementById("seat"+(i*seats[i].length+j+1)).src = "seat_select.png";
+							document.getElementById("seat"+(i*seats[i].length+j+1)).alt = "Your seat";
+							document.getElementById("seat"+(i*seats[i].length+j+2)).src = "seat_select.png";
+							document.getElementById("seat"+(i*seats[i].length+j+2)).alt = "Your seat";
+							var accept = confirm("Seats " + (j+1) + " through" + (j+3) + " in Row " + (i+1) + "are available. Accept?");
+							if(accept)
+							{
+								finished = true;
+								break;
+							}
+							else
+							{
+								selSeat = -1;
+								document.getElementById("seat"+(i*seats[i].length+j)).src = "seat_avail.png";
+								document.getElementById("seat"+(i*seats[i].length+j)).alt = "Available seat";
+								document.getElementById("seat"+(i*seats[i].length+j+1)).src = "seat_avail.png";
+								document.getElementById("seat"+(i*seats[i].length+j+1)).alt = "Available seat";
+								document.getElementById("seat"+(i*seats[i].length+j+2)).src = "seat_avail.png";
+								document.getElementById("seat"+(i*seats[i].length+j+2)).alt = "Available seat";
+							}	
+						}	
+					}
+					i++;
+				}
+			}
+		</script>
+	</head>
+
+	<body onload="initSeats();">
+		<div style="margin-top:25px; text-align:center">
+		      <img id="seat0" src="" alt="" />
+		      <img id="seat1">
+		      <img id="seat2">
+		      <img id="seat3">
+		      <img id="seat4">
+		      <img id="seat5">
+		      <img id="seat6">
+		      <img id="seat7">
+		      <img id="seat8"><br>
+		      <img id="seat9">
+		      <img id="seat10">
+		      <img id="seat11">
+		      <img id="seat12">
+		      <img id="seat13">
+		      <img id="seat14">
+		      <img id="seat15">
+		      <img id="seat16">
+		      <img id="seat17"><br>
+		      <img id="seat18">
+		      <img id="seat19">
+		      <img id="seat20">
+		      <img id="seat21">
+		      <img id="seat22">
+		      <img id="seat23">
+		      <img id="seat24">
+		      <img id="seat25">
+		      <img id="seat26"><br>
+		      <img id="seat27">
+		      <img id="seat28">
+		      <img id="seat29">
+		      <img id="seat30">
+		      <img id="seat31">
+		      <img id="seat32">
+		      <img id="seat33">
+		      <img id="seat34">
+		      <img id="seat35"><br>
+		      <input type="button" id="findseats" value="Find Seats" onclick="findSeats();">
+	    </div>
+	</body>
+</html>
+
